@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <g id="Smile" transform="translate(0.5 0.5)">
+    <path d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" id="Oval" fill="none" stroke="#979797" stroke-width="1" />
+    <path d="M1 2C1.55228 2 2 1.55228 2 1C2 0.447715 1.55228 0 1 0C0.447715 0 0 0.447715 0 1C0 1.55228 0.447715 2 1 2Z" transform="translate(4 5)" id="Oval-Copy-2" fill="#979797" stroke="none" />
+    <path d="M1 2C1.55228 2 2 1.55228 2 1C2 0.447715 1.55228 0 1 0C0.447715 0 0 0.447715 0 1C0 1.55228 0.447715 2 1 2Z" transform="translate(10 5)" id="Oval-Copy-3" fill="#979797" stroke="none" />
+    <path d="M0 0C0 0 4.07914 4.9992 8.61956 0" transform="translate(3.680176 9.499146)" id="Path-30" fill="none" stroke="#979797" stroke-width="1" stroke-linecap="round" />
+  </g>
+</svg>

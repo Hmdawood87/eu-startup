@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <defs>
+    <path d="M0 0L7 0L7 14L0 14L0 0Z" transform="translate(-4.440892E-16 6)" id="path_1" />
+    <path d="M0 0L9 0L9 20L0 20L0 0Z" transform="translate(5 0)" id="path_2" />
+    <path d="M0 0L8 0L8 10L0 10L0 0Z" transform="translate(12 10)" id="path_3" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+    <clipPath id="clip_2">
+      <use xlink:href="#path_2" />
+    </clipPath>
+    <clipPath id="clip_3">
+      <use xlink:href="#path_3" />
+    </clipPath>
+  </defs>
+  <g id="Leaderboard-Icon">
+    <g id="Leaderboard-Icon">
+      <g id="Rectangle">
+        <g clip-path="url(#clip_1)">
+          <use xlink:href="#path_1" fill="none" stroke="#92929D" stroke-width="4" />
+        </g>
+      </g>
+      <g id="Rectangle-Copy-3">
+        <g clip-path="url(#clip_2)">
+          <use xlink:href="#path_2" fill="none" stroke="#92929D" stroke-width="4" />
+        </g>
+      </g>
+      <g id="Rectangle-Copy-4">
+        <g clip-path="url(#clip_3)">
+          <use xlink:href="#path_3" fill="none" stroke="#92929D" stroke-width="4" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

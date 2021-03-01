@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="90px" height="43px" viewBox="0 0 90 43" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <defs>
+    <filter filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB" id="filter_1">
+      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+      <feGaussianBlur stdDeviation="2" result="effect0_gaussianBlur" />
+    </filter>
+  </defs>
+  <g id="Graph-curve" transform="translate(1.5 1.5)">
+    <g filter="url(#filter_1)">
+      <path d="M0 30C0 30 10.9493 25.6588 10.9493 25.6588C10.9493 25.6588 15.0703 19.1409 18.5398 15.7332C22.0093 12.3256 22.2125 11.21 26.8923 10C31.572 8.79001 36.3394 11.9876 36.3394 11.9876C36.3394 11.9876 45.5004 18.6406 50.0037 19.4662C54.5071 20.2917 58.1209 15.1369 58.1209 15.1369C58.1209 15.1369 66.2636 7.69798 69.2856 4.86835L80 0" transform="translate(0 10)" id="Shadow" fill="none" stroke="#539FB7" stroke-opacity="0.4" stroke-width="3" />
+    </g>
+    <path d="M0 35C0 35 6.83358 34.0655 9.50219 31.8281C12.1708 29.5908 14.7078 22.6692 14.7078 22.6692C14.7078 22.6692 18.7764 14.3398 21.0205 11.8605C23.2646 9.38123 27.7901 8.21566 27.7901 8.21566C27.7901 8.21566 32.1276 9.02427 34.5658 10.8516C37.0039 12.6789 41.4756 18.4725 41.4756 18.4725C41.4756 18.4725 47.0272 24.9321 51.9829 24.9321C56.9385 24.9321 60.2291 18.4725 60.2291 18.4725C60.2291 18.4725 65.1325 7.85623 68.7646 3.85447L78 0.00562869" transform="translate(0 4)" id="Path-25" fill="none" stroke="#539FB7" stroke-width="3" />
+    <path d="M4.5 9C6.98528 9 9 6.98528 9 4.5C9 2.01472 6.98528 0 4.5 0C2.01472 0 0 2.01472 0 4.5C0 6.98528 2.01472 9 4.5 9Z" transform="translate(78 0)" id="Oval" fill="none" stroke="#539FB7" stroke-width="3" />
+  </g>
+</svg>

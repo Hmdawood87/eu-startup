@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <defs>
+    <rect width="20" height="21" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="Message-Icon" clip-path="url(#clip_1)">
+    <use xlink:href="#artboard_1" stroke="none" fill="none"/>
+    <g id="Message-Icon">
+      <path d="M10 20C11.5121 20 14.2306 19.0636 14.2306 19.0636L20 20.0636L18.9802 14.4047C18.9802 14.4047 20 11.5807 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" id="Oval" fill="none" stroke="#92929D" stroke-width="2" />
+      <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.895431 3.10457 0 2 0C0.895431 0 0 0.895431 0 2C0 3.10457 0.895431 4 2 4Z" transform="translate(5 8)" id="dot-1" fill="#92929D" stroke="none" />
+      <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.895431 3.10457 0 2 0C0.895431 0 0 0.895431 0 2C0 3.10457 0.895431 4 2 4Z" transform="translate(11 8)" id="dot-2" fill="#92929D" stroke="none" />
+    </g>
+  </g>
+</svg>

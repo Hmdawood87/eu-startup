@@ -1,0 +1,1 @@
+Please verify your email by clicking on <a target="_blank" href="{{route("verify", ["email" => $email, "hash" => $hash])}}">this</a> link.

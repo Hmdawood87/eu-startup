@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="62px" height="62px" viewBox="0 0 62 62" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <defs>
+    <linearGradient x1="1" y1="0.5" x2="-2.220446E-16" y2="0.5" id="gradient_1">
+      <stop offset="0" stop-color="#539FB7" />
+      <stop offset="1" stop-color="#B2DB9E" />
+    </linearGradient>
+    <filter filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB" id="filter_1">
+      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+      <feOffset dx="0" dy="2" />
+      <feGaussianBlur stdDeviation="7.5" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2980392 0" />
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect0_dropShadow" />
+      <feBlend mode="normal" in="SourceGraphic" in2="effect0_dropShadow" result="shape" />
+    </filter>
+  </defs>
+  <g id="Chat-close-icon" transform="translate(1 1)">
+    <g filter="url(#filter_1)">
+      <path d="M30 60C46.5685 60 60 46.5685 60 30C60 13.4315 46.5685 0 30 0C13.4315 0 0 13.4315 0 30C0 46.5685 13.4315 60 30 60Z" id="Oval" fill="#FFFFFF" stroke="none" />
+    </g>
+    <path d="M19 37.8795C21.8729 37.8795 27.0381 36.106 27.0381 36.106L38 38L36.0623 27.2821C36.0623 27.2821 38 21.9336 38 18.9397C38 8.47961 29.4934 0 19 0C8.50659 0 0 8.47961 0 18.9397C0 29.3999 8.50659 37.8795 19 37.8795Z" transform="translate(11 11)" id="Oval" fill="url(#gradient_1)" stroke="none" />
+    <path d="M4 8C6.20914 8 8 6.20914 8 4C8 1.79086 6.20914 0 4 0C1.79086 0 0 1.79086 0 4C0 6.20914 1.79086 8 4 8Z" transform="translate(21 26)" id="dot-1" fill="#FFFFFF" stroke="none" />
+    <path d="M4 8C6.20914 8 8 6.20914 8 4C8 1.79086 6.20914 0 4 0C1.79086 0 0 1.79086 0 4C0 6.20914 1.79086 8 4 8Z" transform="translate(31 26)" id="dot-2" fill="#FFFFFF" stroke="none" />
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="27px" height="22px" viewBox="0 0 27 22" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <g id="Right" transform="translate(0.5 0.5)">
+    <path d="M0 0L20 5.9952e-15L10 12L0 0Z" transform="matrix(-4.371139E-08 -1 1 -4.371139E-08 14 20.5)" id="Drop-icon" fill="#000000" stroke="none" />
+    <path d="M0 1.14492e-16L20 0L10 12L0 1.14492e-16Z" transform="matrix(-4.371139E-08 -1 1 -4.371139E-08 -4.768372E-07 20.5)" id="Drop-icon-Copy" fill="#000000" stroke="none" />
+  </g>
+</svg>

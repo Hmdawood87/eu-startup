@@ -1,0 +1,28 @@
+import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom';
+import asyncComponent from './AsyncComponent';
+
+const Dashboard = asyncComponent(() => import('../component/dashboard/dashboard'));
+const StyleGuide = asyncComponent(() => import('../component/guide'));
+const Authentication = asyncComponent(() => import('../component/auth/authentication'));
+const ResetPassword = asyncComponent(() => import('../component/auth/reset-password'));
+const Leaderboard = asyncComponent(() => import('../component/leaderboard/leaderboard'));
+
+class AppRoute extends Component {
+
+  render() {
+    return (
+      <Switch>
+        <Route exact path='/' component={Authentication} />
+        <Route exact path='/dashboard' component={Dashboard} />
+        <Route exact path='/leaderboard' component={Leaderboard} /> 
+        <Route exact path='/guide' component={StyleGuide} />
+        <Route exact path='/authentication' component={Authentication} />
+        <Route exact path='/reset-password' component={ResetPassword} />
+      </Switch>
+    )
+  }
+}
+
+
+export default AppRoute;
