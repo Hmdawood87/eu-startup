@@ -19,12 +19,14 @@ class UserController extends Controller
         if($validator->fails())
             return response()->json(["success" => false, "message" => $validator->errors()], 412);
         try{
-            $users = User::with('role')->where("id", "!=", $request->user_id);
+            $users = User::with('role','grade')->where("id", "!=", $request->user_id);
             $users = SortAndFilterAndPaginateHelper::filterAndSortAndPaginate($users, $request, 'users');
-            if($request->limit)
-                $users = ["data" => $users->getCollection(), "total" => $users->total()];
-            else
-                $users = ["data" => $users, "total" => count($users)];
+            if($request->limit) {
+                $data = User::where("id", "=", $request->signed_user_id)->orwhere("reporting_id", "=", $request->signed_user_id)->get();
+                $users = ["data" => $users->getCollection(),"condition_data" =>$data, "total" => $users->total()];
+            }else {
+                $users = ["data" => $users,  "total" => count($users)];
+            }
             return response()->json(['success' => true, "users" => $users], 200);
         } catch (\Exception $e) {
             return response()->json(["success" => false, "message" => $e->getMessage()], 500);
@@ -40,11 +42,14 @@ class UserController extends Controller
             'name'            => 'bail|required|string|max:30',
             'email'           => 'bail|required|email|unique:users|max:30',
             'organization_id' => 'bail|required|numeric',
-            "role_id"         => 'bail|required|numeric'
+            "role_id"         => 'bail|required|numeric',
+            "grade_id"         => 'bail|required|numeric',
+
         ]);
         if($validator->fails())
             return response()->json(["success" => false, "message" => $validator->errors()], 412);
         try{
+            $request["password"]="Test@12345";
             $data             = $request->all();
             $data["password"] = bcrypt($data["password"]);
             $user = User::create($data);
@@ -89,7 +94,7 @@ class UserController extends Controller
             return response()->json(["success" => false, "message" => $validator->errors()], 412);
         try{
             $user = User::find($request->id);
-            $user->update(["name" => $request->name,"role_id" => $request->role_id]);
+            $user->update(["name" => $request->name,"role_id" => $request->role_id,"grade_id" => $request->grade_id,"reporting_id" => $request->reporting_id]);
             if($user)
                 return response()->json(["success" => true, "message" => "User updated successfully.", "data" => $user], 201);
             return response()->json(["success" => false, "message" => "Error occured while updating user."], 400);

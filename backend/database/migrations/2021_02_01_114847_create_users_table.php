@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string("email")->unique();
             $table->foreignId("organization_id")->constrained()->onDelete("cascade");
             $table->foreignId("role_id")->constrained();
+            $table->foreignId("grade_id")->constrained();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

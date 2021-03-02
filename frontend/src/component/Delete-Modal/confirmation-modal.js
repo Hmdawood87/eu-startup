@@ -16,7 +16,7 @@ const DeletePopup = (props) => {
                             <ul className="list-inline mb-0">
                                 <li className="list-inline-item">
                                     <Btn onClick={props.delete} variant="pri5RGBA">
-                                        {props.btn=='Save'?'Save':'Delete'}
+                                        {}
                                     </Btn>
 
                                 </li>

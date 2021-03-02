@@ -30,7 +30,8 @@ export default class Tenant extends Component {
             phone_no: '',
             mobile_no: '',
             loading:true,
-            show_delete: false
+            show_delete: false,
+            show_approvel:false
         };
     }
 
@@ -44,7 +45,19 @@ export default class Tenant extends Component {
             }
         })
     };
-
+    hanldeApprovel = (e) => {
+        organizationapi.updateOrganizationTenants(e, {
+            name: this.state.name,
+            salary: this.state.email,
+            status:'Approved'
+        }).then((res) => {
+            if (res.success) {
+                toast.success(res.message, {position: toast.POSITION.TOP_RIGHT, autoClose: 2000})
+                this.componentDidMount()
+                this.setState({show_approvel: false});
+            }
+        })
+    };
     componentDidMount() {
         this.getdata({limit: 5, page: 1})
     }
@@ -86,19 +99,33 @@ export default class Tenant extends Component {
                 dataIndex: 'salary',
                 ...getColumnSearchProps('email', this.state, this),
             },
+            {
+                title: 'Status',
+                dataIndex: 'status',
+
+            },
            
             {
                 title: haspermission(['grades_update', 'grades_delete']) ? 'Actions' : '',
                 render: (checked, record, index, originNode) => (
                     <Space size="small">
                         <React.Fragment>
-                            {haspermission(['grades_update']) ? (
+                            {haspermission(['salary_update']) && record.status=='Pending'? (
+                                <Tooltip placement="topLeft" title="view">
+                                    <Btn
+                                        onClick={() => this.setState({show_approvel: true, tenant_id:record.id,name:record.name,email:record.salary})}
+                                        size="sm" variant="pri2">
+                                        <FontAwesomeIcon icon="eye"/>
+                                    </Btn>
+                                </Tooltip>
+                            ) : ''}
+                            {haspermission(['grades_update'])  ? (
                                 <Tooltip placement="topLeft" title="view">
                                     <Btn
                                         onClick={() => this.setState({
                                             tenant_id:record.id,
                                             name: record.name,
-                                            email: record.email,
+                                            email: record.salary,
                                         
                                             show_edit: true
                                         })
@@ -108,6 +135,7 @@ export default class Tenant extends Component {
                                     </Btn>
                                 </Tooltip>
                             ) : ''}
+
                             {haspermission(['grades_delete']) ? (
                                 <Tooltip placement="topLeft" title="Delete">
                                     <Btn
@@ -192,12 +220,19 @@ export default class Tenant extends Component {
                 </Card.Body>
 
                 {this.state.show_delete ? (
-                        <DeletePopup show={this.state.show_delete} title="Are you sure you want to delete this grade?"
+                        <DeletePopup show={this.state.show_delete} btn="Delete" title="Are you sure you want to delete this grade?"
                                      cancel={() => this.setState({show_delete: false})} delete={() =>
                             this.hanldeDelete(
                                 this.state.tenant_id
                             )}/>
                     ) :''}
+                {this.state.show_approvel ? (
+                    <DeletePopup show={this.state.show_approvel} btn="Save" title="Are you sure you want to Approve this change?"
+                                 cancel={() => this.setState({show_approvel: false})} delete={() =>
+                        this.hanldeApprovel(
+                            this.state.tenant_id
+                        )}/>
+                ) :''}
             </Card>
         );
     }

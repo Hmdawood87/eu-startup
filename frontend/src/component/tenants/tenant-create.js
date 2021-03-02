@@ -6,6 +6,7 @@ import {toast} from "react-toastify";
 
 export default class TenantCreate extends Component {
     constructor(props) {
+        console.log("prp are",props)
         super(props);
         this.state = {
             show: false,
@@ -15,6 +16,7 @@ export default class TenantCreate extends Component {
             name:this.props.data.name?this.props.data.name:'',
             phone_no:this.props.data.phone_no?this.props.data.phone_no:'',
             mobile_no:this.props.data.mobile_no?this.props.data.mobile_no:'',
+            status:'Pending',
             feedback: {
                 email: {msg: "salary missing", type: "invalid"},
                 name: {msg: "name missing", type: "invalid"},
@@ -50,7 +52,7 @@ export default class TenantCreate extends Component {
             ? organizationapi.updateOrganizationTenants(this.props.data.owner_id, {
                 name: this.state.name,
                 salary: this.state.email,
-          
+                status:this.state.status
             }).then((res) => {
                 if (res.success) {
                     toast.success(res.message, {position: toast.POSITION.TOP_RIGHT, autoClose: 2000})
@@ -62,7 +64,7 @@ export default class TenantCreate extends Component {
                 organization_id: this.state.org_id,
                 name: this.state.name,
                 salary: this.state.email,
-           
+
 
             }).then((res) => {
                 if (res.success) {

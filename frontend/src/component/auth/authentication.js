@@ -93,7 +93,7 @@ class Authentication extends Component {
 
                   // return <Redirect to='/dashboard'/>;
                   this.props.history.push(
-                    "/dashboard"
+                    "/users"
                   );
                 }
               }

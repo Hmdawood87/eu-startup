@@ -33,7 +33,7 @@ class TenantController extends Controller
             'name'            => 'bail|required|string|max:30',
             'salary'           => 'bail|required|string|max:30',
             'organization_id' => 'bail|required|numeric',
-      
+
         ]);
         if($validator->fails())
             return response()->json(["success" => false, "message" => $validator->errors()], 412);
@@ -55,12 +55,12 @@ class TenantController extends Controller
         $validator = Validator::make($request->all(), [
             'name'            => 'bail|required|string|max:30',
             'salary'           => 'bail|required|string|max:30',
-           
+
         ]);
         if($validator->fails())
             return response()->json(["success" => false, "message" => $validator->errors()], 412);
         try{
-            $updated = $tenant->update(["name" => $request->name, "salary" => $request->salary]);
+            $updated = $tenant->update(["name" => $request->name, "salary" => $request->salary,"status" => $request->status]);
             if($updated)
                 return response()->json(["success" => true, "message" => "Grade updated successfully.", "data" => $tenant], 201);
             return response()->json(["success" => false, "message" => "Error occured while updating Tenant."], 400);

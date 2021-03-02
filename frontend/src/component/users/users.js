@@ -32,10 +32,12 @@ export default class User extends Component {
             email: '',
             name: '',
             role_id:'',
+            grade_id:'',
             loading:true,
             total: 0,
             show_delete: false,
-            roles:[]
+            roles:[],
+            condition_data:[]
         };
     }
 
@@ -50,7 +52,7 @@ export default class User extends Component {
     };
 
     componentDidMount() {
-        this.getdata({limit: 5, page: 1})
+        this.getdata({limit: 5, page: 1,filters:{signed_user_id:this.state.user.id}})
     }
 
     getdata = (data = null) => {
@@ -60,7 +62,7 @@ export default class User extends Component {
         organizationapi.getOrganizationUsers(this.state.org_id,data).then(res => {
             if(res.success){
                 console.log("values we",res);
-                this.setState({org: res.users.data,loading:false});
+                this.setState({org: res.users.data,loading:false,condition_data:res.users.condition_data});
             }
         });
         organizationroleapi.getOrganizationRole(this.state.org_id).then((res) => {
@@ -89,7 +91,10 @@ export default class User extends Component {
         })
 
     }
-    
+    checkview=(user_id=null,reporting_id=null)=>{
+
+        return reporting_id;
+    }
     render() {
         const columns = [
             {
@@ -103,6 +108,13 @@ export default class User extends Component {
                 ...getColumnSearchProps('email',this.state,this),
             },
             {
+                title: 'Reporting Person',
+                dataIndex: 'reporting_id',
+                render:(record)=>{
+                    this.checkview(3,record)
+                }
+            },
+            {
                 title: 'Role',
                 dataIndex: 'role',
                 key: "role_id",
@@ -113,6 +125,12 @@ export default class User extends Component {
                 render:(record)=> record.name
             },
 
+            {
+                title: 'Salary',
+                dataIndex: 'grade',
+
+                render:(record)=> record.salary
+            },
             {
                 title: haspermission(['user_update', 'user_delete']) ? 'Actions' : '',
                 render: (checked, record, index, originNode) => (
@@ -126,6 +144,7 @@ export default class User extends Component {
                                             name: record.name,
                                             email: record.email,
                                             role_id:record.role.id,
+                                            grade_id:record.grade.id,
                                             show_edit: true
                                         })
                                         }
@@ -150,7 +169,14 @@ export default class User extends Component {
             }
 
         ];
-
+       if(haspermission(['user_delete'])){
+           columns.splice(columns.length-1, 0,  {
+               title: 'Grade',
+               dataIndex: 'grade',
+               render:(record)=> record.name
+           });
+           // columns.insert(columns.length-1,)
+       }
 
         return (
 
@@ -163,7 +189,7 @@ export default class User extends Component {
                                 </div>
                             </Col>
                             <Col xs="6" className="text-right">
-                                {haspermission(['owner_create']) ? (
+                                {haspermission(['user_create']) ? (
                                         <div className="py-2">
                                             <Btn  onClick={() => this.setState({show_add: true})
                                             } variant="pri5Outline" size="md">
@@ -206,7 +232,8 @@ export default class User extends Component {
                                         email: this.state.email,
                                         org_id:this.state.org_id,
                                         user_id:this.state.user_id,
-                                        role_id:this.state.role_id
+                                        role_id:this.state.role_id,
+                                        grade_id:this.state.grade_id
                                     }}
                                     show={this.state.show_edit}
                                     hide={() => {
@@ -219,7 +246,7 @@ export default class User extends Component {
 
                     </Card.Body>
                 {this.state.show_delete ? (
-                        <DeletePopup show={this.state.show_delete} title="Are you sure you want to delete this user?"
+                        <DeletePopup show={this.state.show_delete} btn="Delete" title="Are you sure you want to delete this user?"
                                      cancel={() => this.setState({show_delete: false})} delete={() =>
                             this.hanldeDelete(
                                 this.state.user_id
