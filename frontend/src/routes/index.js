@@ -252,8 +252,8 @@ class AppRoute extends Component {
                 <DashboardLayoutRoute
                     exact
                     isPrivate={true}
-                    keyValue={['tenants_view', 'tenants_delete', 'tenants_update', 'tenants_create']}
-                    path="/tenant"
+                    keyValue={['grades_view', 'grades_delete', 'grades_update', 'grades_create']}
+                    path="/grades"
                     component={Tenant}
                 />
 

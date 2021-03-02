@@ -5,8 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Tenant extends Model
-{
-    protected $fillable = ["name", "email", "phone_no", "mobile_no", "organization_id"];
+{ 
+      protected $table="grades";
+
+    protected $fillable = ["name", "salary",  "organization_id"];
 
     public function organization()
     {

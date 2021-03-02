@@ -16,7 +16,7 @@ class TenantController extends Controller
             if($validator->fails())
                 return response()->json(["success" => false, "message" => $validator->errors()], 412);
             $tenants = Tenant::where("organization_id", $request->organization_id);
-            $tenants = SortAndFilterAndPaginateHelper::filterAndSortAndPaginate($tenants, $request, 'tenants');
+            $tenants = SortAndFilterAndPaginateHelper::filterAndSortAndPaginate($tenants, $request, 'grades');
             if($request->limit)
                 $tenants = ["data" => $tenants->getCollection(), "total" => $tenants->total()];
             else
@@ -31,16 +31,15 @@ class TenantController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'            => 'bail|required|string|max:30',
-            'email'           => 'bail|required|email|unique:users|max:30',
+            'salary'           => 'bail|required|string|max:30',
             'organization_id' => 'bail|required|numeric',
-            'phone_no'        => 'bail|required|numeric|digits_between:1,15',
-            'mobile_no'       => 'bail|required|numeric|digits_between:1,15',
+      
         ]);
         if($validator->fails())
             return response()->json(["success" => false, "message" => $validator->errors()], 412);
         try {
             $tenant = Tenant::create($request->all());
-            return response()->json(['success' => true, 'data' => $tenant, 'message' => 'Tenant has been created successfully'], 201);
+            return response()->json(['success' => true, 'data' => $tenant, 'message' => 'Grade has been created successfully'], 201);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 409);
         }
@@ -54,17 +53,16 @@ class TenantController extends Controller
     public function update(Request $request, Tenant $tenant)
     {
         $validator = Validator::make($request->all(), [
-            'name'=> 'bail|required|string|max:30',
-            'email'           => 'bail|required|email|unique:users|max:30',
-            'phone_no'       => 'bail|required|numeric|digits_between:1,15',
-            'mobile_no'       => 'bail|required|numeric|digits_between:1,15',
+            'name'            => 'bail|required|string|max:30',
+            'salary'           => 'bail|required|string|max:30',
+           
         ]);
         if($validator->fails())
             return response()->json(["success" => false, "message" => $validator->errors()], 412);
         try{
-            $updated = $tenant->update(["name" => $request->name, "email" => $request->email, "phone_no" => $request->phone_no, "mobile_no" => $request->mobile_no]);
+            $updated = $tenant->update(["name" => $request->name, "salary" => $request->salary]);
             if($updated)
-                return response()->json(["success" => true, "message" => "Tenant updated successfully.", "data" => $tenant], 201);
+                return response()->json(["success" => true, "message" => "Grade updated successfully.", "data" => $tenant], 201);
             return response()->json(["success" => false, "message" => "Error occured while updating Tenant."], 400);
         } catch (\Exception $e) {
             return response()->json(["success" => false, "message" => $e->getMessage()], 500);
@@ -75,7 +73,7 @@ class TenantController extends Controller
     {
         try{
             $tenant->delete();
-            return response()->json(["success" => true, "message" => "Tenant deleted successfully."], 200);
+            return response()->json(["success" => true, "message" => "Grade deleted successfully."], 200);
         } catch (\Exception $e) {
             return response()->json(["success" => false, "message" => $e->getMessage()], 500);
         }

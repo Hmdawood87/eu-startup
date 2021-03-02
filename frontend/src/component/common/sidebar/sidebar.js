@@ -28,21 +28,7 @@ class Sidebar extends Component {
         return (
             <SideBarDiv>
                 <SideBarListing>
-                    {haspermission(['user_view','user_delete','user_update','user_create'])?
-                    (
-                        <>
-                         <SideBarList>
-                        <SideBarLink to="/dashboard">
-                            <SideBarIcon>
-                              <img src={DashboardIcon} className="normal" alt="sidebar-icon"/>
-                              <img src={DashboardIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Dashboard
-                        </SideBarLink>
-                    </SideBarList>
-                        </>
-                    ):''
-                }
+               
                     {haspermission(['role_view','role_delete','role_update','role_create'])?
                     (
                         <>
@@ -58,21 +44,7 @@ class Sidebar extends Component {
                          </>
                     ):''
                 }
-                   {haspermission(['owner_view','owner_delete','owner_update','owner_create'])?
-                    (
-                        <>
-                    <SideBarList>
-                        <SideBarLink to="/owner">
-                            <SideBarIcon>
-                                <img src={SearchIcon} className="normal" alt="sidebar-icon"/>
-                                <img src={SearchIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Owners
-                        </SideBarLink>
-                    </SideBarList>
-                              </>
-                    ):''
-                }
+               
                 {haspermission(['user_view','user_delete','user_update','user_create'])?
                     (
                         <>
@@ -86,24 +58,12 @@ class Sidebar extends Component {
                         </SideBarLink>
                     </SideBarList>
                     </>): ''}
-                    {haspermission(['property_view','property_delete','property_update','property_create'])?
-                    (
-                        <>
-                    <SideBarList>
-                        <SideBarLink to="/property">
-                            <SideBarIcon>
-                              <img src={LeaderboardIcon} className="normal" alt="sidebar-icon"/>
-                              <img src={LeaderboardIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Properties
-                        </SideBarLink>
-                    </SideBarList>
-                    </>): ''}
-                {haspermission(['tenants_view','tenants_delete','tenants_update','tenants_create'])?
+                
+                {haspermission(['grades_view','grades_delete','grades_update','grades_create'])?
                     (
                         <>
                             <SideBarList>
-                                <SideBarLink to="/tenant">
+                                <SideBarLink to="/grades">
                                     <SideBarIcon>
                                         <img src={LeaderboardIcon}
                                         className="normal"
@@ -112,131 +72,13 @@ class Sidebar extends Component {
                                         className="active"
                                         alt="sidebar-icon"/>
                                     </SideBarIcon>
-                                    Tenants
+                                    Grades
                                 </SideBarLink>
                             </SideBarList>
                        </>
                     ):''}
-                 {haspermission(['user_view','user_delete','user_update','user_create'])?
-                    (
-                        <>
-                    <SideBarList>
-                        <SideBarLink to="/administration">
-                            <SideBarIcon>
-                                <img src={AdminIcon} className="normal" alt="sidebar-icon"/>
-                                <img src={AdminIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Administration
-                        </SideBarLink>
-                    </SideBarList>
-                        </>
-                    ):''
-                }
-                 {haspermission(['user_view','user_delete','user_update','user_create'])?
-                    (
-                        <>
-                    <SideBarList>
-                        <SideBarLink to="/sales">
-                            <SideBarIcon>
-                                <img src={SalesIcon} className="normal" alt="sidebar-icon"/>
-                                <img src={SalesIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Sales
-                        </SideBarLink>
-                    </SideBarList>
-                          </>
-                    ):''
-                }
-                 {haspermission(['user_view','user_delete','user_update','user_create'])?
-                    (
-                        <>
-                    <SideBarList>
-                        <SideBarLink to="/schedule">
-                            <SideBarIcon>
-                                <img src={ScheduleIcon} className="normal" alt="sidebar-icon"/>
-                                <img src={ScheduleIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Schedule
-                        </SideBarLink>
-                    </SideBarList>
-                           </>
-                    ):''
-                }
-                   {haspermission(['user_view','user_delete','user_update','user_create'])?
-                    (
-                        <>
-                    <SideBarList>
-                        <SideBarLink to="/messages">
-                            <SideBarIcon>
-                                <img src={MessageIcon} className="normal" alt="sidebar-icon"/>
-                                <img src={MessageIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Messages
-                        </SideBarLink>
-                    </SideBarList>
-                               </>
-                    ):''
-                }
-                   {haspermission(['user_view','user_delete','user_update','user_create'])?
-                    (
-                        <>
-                    <SideBarList>
-                        <SideBarLink to="/library">
-                            <SideBarIcon>
-                                <img src={LibraryIcon} className="normal" alt="sidebar-icon"/>
-                                <img src={LibraryIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Library
-                        </SideBarLink>
-                    </SideBarList>
-                              </>
-                    ):''
-                }
-                {haspermission(['user_view','user_delete','user_update','user_create'])?
-                    (
-                        <>
-                    <SideBarList>
-                        <SideBarLink to="/settings">
-                            <SideBarIcon>
-                                <img src={SettingsIcon} className="normal" alt="sidebar-icon"/>
-                                <img src={SettingsIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Settings
-                        </SideBarLink>
-                    </SideBarList>
-                              </>
-                    ):''
-                }
-                {haspermission(['user_view','user_delete','user_update','user_create'])?
-                    (
-                        <>
-                    <SideBarList>
-                        <SideBarLink to="/support">
-                            <SideBarIcon>
-                                <img src={SupportIcon} className="normal" alt="sidebar-icon"/>
-                                <img src={SupportIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Support
-                        </SideBarLink>
-                    </SideBarList>
-                              </>
-                    ):''
-                }
-                 {haspermission(['user_view','user_delete','user_update','user_create'])?
-                    (
-                        <>
-                    <SideBarList>
-                        <SideBarLink to="#">
-                            <SideBarIcon>
-                                <img src={SearchIcon} className="normal" alt="sidebar-icon"/>
-                                <img src={SearchIconGradient} className="active" alt="sidebar-icon"/>
-                            </SideBarIcon>
-                            Search…
-                        </SideBarLink>
-                    </SideBarList>
-                              </>
-                    ):''
-                }
+         
+       
                 </SideBarListing>
             </SideBarDiv>
         );

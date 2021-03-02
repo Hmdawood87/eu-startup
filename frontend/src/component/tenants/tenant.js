@@ -35,6 +35,7 @@ export default class Tenant extends Component {
     }
 
     hanldeDelete = (e) => {
+        console.log("callinbg delt id",e)
         organizationapi.deleteOrganizationTenants(e).then((res) => {
             if (res.success) {
                 toast.success(res.message, {position: toast.POSITION.TOP_RIGHT, autoClose: 2000})
@@ -81,34 +82,24 @@ export default class Tenant extends Component {
                 ...getColumnSearchProps('name', this.state, this),
             },
             {
-                title: 'Email',
-                dataIndex: 'email',
+                title: 'Salary',
+                dataIndex: 'salary',
                 ...getColumnSearchProps('email', this.state, this),
             },
+           
             {
-                title: 'Phone No',
-                dataIndex: 'phone_no',
-                ...getColumnSearchProps('phone_no', this.state, this),
-            },
-            {
-                title: 'Mobile No',
-                dataIndex: 'mobile_no',
-                ...getColumnSearchProps('mobile_no', this.state, this),
-            },
-            {
-                title: haspermission(['tenants_update', 'tenants_delete']) ? 'Actions' : '',
+                title: haspermission(['grades_update', 'grades_delete']) ? 'Actions' : '',
                 render: (checked, record, index, originNode) => (
                     <Space size="small">
                         <React.Fragment>
-                            {haspermission(['tenants_update']) ? (
+                            {haspermission(['grades_update']) ? (
                                 <Tooltip placement="topLeft" title="view">
                                     <Btn
                                         onClick={() => this.setState({
                                             tenant_id:record.id,
                                             name: record.name,
                                             email: record.email,
-                                            mobile_no: record.mobile_no,
-                                            phone_no: record.phone_no,
+                                        
                                             show_edit: true
                                         })
                                         }
@@ -117,7 +108,7 @@ export default class Tenant extends Component {
                                     </Btn>
                                 </Tooltip>
                             ) : ''}
-                            {haspermission(['tenants_delete']) ? (
+                            {haspermission(['grades_delete']) ? (
                                 <Tooltip placement="topLeft" title="Delete">
                                     <Btn
                                         onClick={() => this.setState({show_delete: true, tenant_id:record.id})}
@@ -140,15 +131,15 @@ export default class Tenant extends Component {
                     <Row className="align-items-center">
                         <Col xs="6">
                             <div className="py-2">
-                                <h3 className="mb-0">Organization Tenants Details</h3>
+                                <h3 className="mb-0">Organization Grades Details</h3>
                             </div>
                         </Col>
                         <Col xs="6" className="text-right">
-                            {haspermission(['tenants_create']) ? (
+                            {haspermission(['grades_create']) ? (
                                     <div className="py-2">
                                         <Btn onClick={() => this.setState({show_add: true})
                                         } variant="pri5Outline" size="md">
-                                            Add new Tenant
+                                            Add new grades
                                         </Btn>
                                     </div>
                                 ) :
@@ -187,7 +178,7 @@ export default class Tenant extends Component {
                                     phone_no: this.state.phone_no,
                                     mobile_no: this.state.mobile_no,
                                     org_id: this.state.org_id,
-                                    owner_id: this.state.owner_id
+                                    owner_id: this.state.tenant_id
                                 }}
                                 show={this.state.show_edit}
                                 hide={() => {
@@ -201,10 +192,10 @@ export default class Tenant extends Component {
                 </Card.Body>
 
                 {this.state.show_delete ? (
-                        <DeletePopup show={this.state.show_delete} title="Are you sure you want to delete this tenant?"
+                        <DeletePopup show={this.state.show_delete} title="Are you sure you want to delete this grade?"
                                      cancel={() => this.setState({show_delete: false})} delete={() =>
                             this.hanldeDelete(
-                                this.state.owner_id
+                                this.state.tenant_id
                             )}/>
                     ) :''}
             </Card>

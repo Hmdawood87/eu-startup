@@ -13,15 +13,12 @@ class CreateTenantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tenants', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("email")->unique();
-            $table->unsignedBigInteger("phone_no");
-            $table->unsignedBigInteger("mobile_no");
-            $table->foreignId("organization_id")->constrained();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
+            $table->string("salary");
+            $table->string("status");
+            $table->foreignId("organization_id")->constrained()->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateTenantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tenants');
+        Schema::dropIfExists('grades');
     }
 }

@@ -16,10 +16,9 @@ export default class TenantCreate extends Component {
             phone_no:this.props.data.phone_no?this.props.data.phone_no:'',
             mobile_no:this.props.data.mobile_no?this.props.data.mobile_no:'',
             feedback: {
-                email: {msg: "email missing", type: "invalid"},
+                email: {msg: "salary missing", type: "invalid"},
                 name: {msg: "name missing", type: "invalid"},
-                phone_no: {msg: "phone missing", type: "invalid"},
-                mobile_no: {msg: "mobile missing", type: "invalid"},
+            
             }
         }
 
@@ -50,9 +49,8 @@ export default class TenantCreate extends Component {
         this.props.model == 'edit'
             ? organizationapi.updateOrganizationTenants(this.props.data.owner_id, {
                 name: this.state.name,
-                email: this.state.email,
-                mobile_no: this.state.mobile_no,
-                phone_no: this.state.phone_no,
+                salary: this.state.email,
+          
             }).then((res) => {
                 if (res.success) {
                     toast.success(res.message, {position: toast.POSITION.TOP_RIGHT, autoClose: 2000})
@@ -63,9 +61,8 @@ export default class TenantCreate extends Component {
             organizationapi.createOrganizationTenants({
                 organization_id: this.state.org_id,
                 name: this.state.name,
-                email: this.state.email,
-                mobile_no: this.state.mobile_no,
-                phone_no: this.state.phone_no,
+                salary: this.state.email,
+           
 
             }).then((res) => {
                 if (res.success) {
@@ -83,7 +80,7 @@ export default class TenantCreate extends Component {
                          show={this.props.show} onHide={this.props.hide}>
                 <Modal.Header closeButton>
                     <Modal.Title
-                        className="mx-auto">{this.props.model == 'create' ? 'Create Tenant' : 'Edit Tenant'}</Modal.Title>
+                        className="mx-auto">{this.props.model == 'create' ? 'Create Grade' : 'Edit Grade'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form noValidate validated={this.state.setValidated} onSubmit={this.handlesubmitt}>
@@ -93,11 +90,11 @@ export default class TenantCreate extends Component {
                                 name="name"
                                 type="text"
                                 required
-                                placeholder="Dawood Tahir"
+                                placeholder="16"
                                 onChange={this.handleChange}
                             />
                             <Form.Label>
-                                Tenant Name
+                                Grade Name
                             </Form.Label>
                             <Form.Control.Feedback type={this.state.feedback.name.type} >
                                 {this.state.feedback.name.msg}
@@ -107,57 +104,25 @@ export default class TenantCreate extends Component {
                             <Form.Control
                                 value={this.state.email}
                                 name="email"
-                                type="email"
+                                type="text"
                                 required
-                                placeholder="abc@gmail.com"
+                                placeholder="1600"
                                 onChange={this.handleChange}
                             />
                             <Form.Label>
-                                Tenant Email
+                                Grade Salary
                             </Form.Label>
                             <Form.Control.Feedback type={this.state.feedback.email.type} >
                                 {this.state.feedback.email.msg}
                             </Form.Control.Feedback>
                         </InputField>
-                        <InputField>
-                            <Form.Control
-                                value={this.state.phone_no}
-                                name="phone_no"
-                                type="text"
-                                required
-                                placeholder="0563712883"
-                                onChange={this.handleChange}
-                            />
-                            <Form.Label>
-                                Tenant Phone No
-                            </Form.Label>
-                            <Form.Control.Feedback type={this.state.feedback.phone_no.type} >
-                                {this.state.feedback.phone_no.msg}
-                            </Form.Control.Feedback>
-                        </InputField>
-                        <InputField>
-                            <Form.Control
-                                value={this.state.mobile_no}
-                                name="mobile_no"
-                                type="text"
-                                required
-                                placeholder="+923417656271"
-                                onChange={this.handleChange}
-                            />
-                            <Form.Label>
-                                Tenant Mobile No
-                            </Form.Label>
-                            <Form.Control.Feedback type={this.state.feedback.mobile_no.type} >
-                                {this.state.feedback.mobile_no.msg}
-                            </Form.Control.Feedback>
-                        </InputField>
+                        
+                     
                         <ul className="list-inline text-center mb-0">
                             <li className="list-inline-item">
                                 <Btn type="submit" variant="pri5RGBA"
                                     disabled={this.state.email === '' ||
-                                    this.state.name === '' ||
-                                    this.state.mobile_no === '' ||
-                                    this.state.phone_no === ''}
+                                    this.state.name === '' }
                                 >
                                     {this.props.model == 'create' ? 'Save' : 'Update'}
                                 </Btn>
