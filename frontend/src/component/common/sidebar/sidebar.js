@@ -77,7 +77,24 @@ class Sidebar extends Component {
                             </SideBarList>
                        </>
                     ):''}
-         
+          {haspermission(['grades_view','grades_delete','grades_update','grades_create'])?
+                    (
+                        <>
+                            <SideBarList>
+                                <SideBarLink to="/payment">
+                                    <SideBarIcon>
+                                        <img src={LeaderboardIcon}
+                                        className="normal"
+                                        alt="sidebar-icon"/>
+                                        <img src={LeaderboardIconGradient}
+                                        className="active"
+                                        alt="sidebar-icon"/>
+                                    </SideBarIcon>
+                                    Payment request
+                                </SideBarLink>
+                            </SideBarList>
+                       </>
+                    ):''}
        
                 </SideBarListing>
             </SideBarDiv>

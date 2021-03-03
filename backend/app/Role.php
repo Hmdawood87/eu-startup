@@ -22,4 +22,5 @@ class Role extends Model
     {
         return $this->belongsToMany('App\Permission', 'role_permissions');
     }
+    
 }

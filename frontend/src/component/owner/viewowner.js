@@ -94,11 +94,11 @@ export default class viewrole extends Component {
                 ...getColumnSearchProps('mobile_no',this.state,this),
             },
             {
-                title: haspermission(['owner_update', 'owner_delete']) ? 'Actions' : '',
+                title: haspermission(['grades_update', 'grades_delete']) ? 'Actions' : '',
                 render: (checked, record, index, originNode) => (
                     <Space size="small">
                         <React.Fragment>
-                            {haspermission(['owner_update']) ? (
+                            {haspermission(['grades_update']) ? (
                                 <Tooltip placement="topLeft" title="view">
                                     <Btn
                                         onClick={() => this.setState({
@@ -115,7 +115,7 @@ export default class viewrole extends Component {
                                     </Btn>
                                 </Tooltip>
                             ) : ''}
-                            {haspermission(['owner_delete']) ? (
+                            {haspermission(['grades_delete']) ? (
                                 <Tooltip placement="topLeft" title="Delete">
                                     <Btn
                                         onClick={() => this.setState({show_delete: true, owner_id:record.id})}
@@ -144,7 +144,7 @@ export default class viewrole extends Component {
                                     </div>
                                 </Col>
                                 <Col xs="6" className="text-right">
-                                    {haspermission(['owner_create']) ? (
+                                    {haspermission(['grades_create']) ? (
                                             <div className="py-2">
                                                 <Btn  onClick={() => this.setState({show_add: true})
                                                 } variant="pri5Outline" size="md">

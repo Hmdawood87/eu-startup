@@ -1,202 +1,222 @@
-import React, {Component} from 'react';
-import {Modal, Row, Col, Button, Form, Media,} from "react-bootstrap";
-import Avatar from "../../component/common/avatar/Avatar";
-import User from "../../assets/img/Bitmap.svg";
-import ContactIconPrimary5 from "../../assets/img/Contact-Icon-primary5.svg";
-import EmailIconPrimary5 from "../../assets/img/Email-Icon-primary5.svg";
-import ChatIconPrimary5 from "../../assets/img/Chat-Icon-primary5.svg";
-import StarRating from "../../component/common/star-rating/star-rating";
-import {SearchField} from "../../assets/css/searchAreaStyle";
-import {InfoHeading, InfoItem} from "../../assets/css/mediaStyle";
-import {BadgeLabel, Btn, colorPrimary5, CommonModal, InputField} from "../../globalStyle";
-import {AssignVendorLists, NewVendorLists} from "../../assets/css/dashboardStyle";
-import * as organizationapi from "../../services/organization_owner";
-import {toast} from 'react-toastify'
+import React,{useState,useEffect} from 'react';
+import {Card, Col, Form, Modal, Row} from "react-bootstrap";
+import {Btn, CommonModal, InputField, TextArea} from "../../globalStyle";
 
-export default class createowner extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            show: false,
-            setValidated:false,
-            org_id:this.props.data.org_id,
-            email:this.props.data.email?this.props.data.email:'',
-            name:this.props.data.name?this.props.data.name:'',
-            phone_no:this.props.data.phone_no?this.props.data.phone_no:'',
-            mobile_no:this.props.data.mobile_no?this.props.data.mobile_no:'',
-            feedback: {
-                name: {msg: "name missing", type: "invalid"},
-                email: {msg: "email missing", type: "invalid"},
-                phone_no: {msg: "phone missing", type: "invalid"},
-                mobile_no: {msg: "msg missing", type: "invalid"}
-            }
-        }
+import * as propertyApi from  "../../services/organization_owner";
+import {getColumnSearchProps} from "../../layouts/tablefilter";
+import haspermission from "../../routes/checkpermission";
+import {Space, Tooltip} from "antd";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {AntTable} from "../../assets/css/TableStyle";
+import * as organizationApi from "../../services/organization_property";
+import {Button, ProgressBar, InputGroup, FormControl} from "react-bootstrap";
+const PropertyOwnerTenants = (props) => {
+    // const [searcheddata,setsearcheddata]=useState([])
+    // const [searchedvalue,setsearchvalue]=useState('')
+    const [progress, setProgress]=useState(0);
+    const [note,setnote]=useState()
+    const [selectedid,setselectedid]=useState()
+    const [selectedFile,setselectedFile]=useState()
+    const [user,setuser]=useState(JSON.parse(localStorage.getItem('_property_matters_360_user')))
+    
 
+    // const search=()=>{
+    //     console.log("calling search")
+    //     props.modal=='owner'?
+    //         ownerApi.getOrganizationOwner(user.organization_id,{limit: 100,
+    //             page: 1,filters:{name:[searchedvalue]}}).then(res => {
+    //             if(res.success){
+    //                 setsearcheddata(res.owners.data);
+    //                 setdropdown(true)
+    //                 console.log("searcheddata",searcheddata)
+    //             }
+    //         }): tenantApi.getOrganizationTenants(user.organization_id,{filters:{name:[searchedvalue]}}).then(res => {
+    //             if(res.success){
+    //                 setsearcheddata(res.tenants.data)
+    //                 setdropdown(true)
+    //                 console.log("searcheddata",searcheddata)
 
-    }
+    //             }
+    //         })
+    // }
+    // const submitttenentuser=(id)=>{
+    //     // console.log("value of selected id",selectedid)
+    //
+    // }
+    // const columns = [
+    //     {
+    //         title: 'Name',
+    //         dataIndex: 'name',
+    //         // ...getColumnSearchProps('name',this.state,this),
+    //     },
+    //     {
+    //         title: 'Email',
+    //         dataIndex: 'email',
+    //         // ...getColumnSearchProps('email',this.state,this),
+    //     },
+    //     {
+    //         title: 'Phone No',
+    //         dataIndex: 'phone_no',
+    //         // ...getColumnSearchProps('phone_no',this.state,this),
+    //     },
+    //     {
+    //         title: 'Mobile No',
+    //         dataIndex: 'mobile_no',
+    //         // ...getColumnSearchProps('mobile_no',this.state,this),
+    //     },
+    //     {
+    //         title: 'Actions',
+    //         render: (checked, record, index, originNode) => (
+    //             <Space size="small">
+    //                 <Btn   variant="pri5RGBA" onClick={()=>setselectedid(record.id)}>
+    //                     {props.modal=='owner'?'Add Owner':'Add Tenant'}
+    //                 </Btn>
+    //             </Space>
+    //         ),
+    //     }
 
-    handleChange = e => {
-        // console.log("value on change ", e.target);
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-        const form = e.currentTarget;
-        if (form.checkValidity()==true){
-            this.setState({
-                setValidated:true
-            });
-        }
+    // ];
+   const onFileChange = event => {
+        // Update the state
+       setselectedFile(event.target.files[0])
+        // this.setState({ set: event.target.files[0] });
     };
 
-    handlesubmitt=(e)=>{
-        e.preventDefault();
-        const form = e.currentTarget;
+    // On file upload (click the upload button)
+   const  onFileUpload = () => {
+        // Create an object of formData
+        const formData = new FormData();
 
-        console.log('validtiy',form.checkValidity());
-        if (!form.checkValidity()) {
-            e.preventDefault();
-            this.setState({setValidated: true});
-            // e.stopPropagation();
+        // Update the formData object
+
+
+        // Details of the uploaded file
+       formData.append(
+           "file",
+           selectedFile,
+           selectedFile.name
+       );
+       formData.append(
+           "submitted_id",
+           user.id,
+       );
+       formData.append(
+        "note",
+        note,
+    );
+        // Request made to the backend api
+        // Send formData object
+    //    let data={}
+    //    if(props.modal=='owner'){
+
+    //        formData.append(
+    //            "owner_id",
+    //            selectedid,
+    //        );
+    //        // data={:,property_id:props.property_id,formData:formData}
+    //    }
+    //    if(props.modal=='tenant'){
+
+    //        formData.append(
+    //            "tenant_id",
+    //            selectedid,
+    //        );
+    //        // data={,formData:formData}
+    //    }
+       propertyApi.createOrganizationOwner(formData, (event)=>{
+          setProgress(Math.round((100 * event.loaded) / event.total));
+       })
+       .then(res => {
+           if(res.success){
+               props.hide()
+           }
+       });
+    };
+
+    // File content to be displayed after
+    // file upload is complete
+   const fileData = () => {
+        if (selectedFile) {
+
+            return (
+                <div>
+                    <h2>File Details:</h2>
+                    <p>File Name: {selectedFile.name}</p>
+                    <p>File Type: {selectedFile.type}</p>
+                    <p>
+                        Last Modified:{" "}
+                        {selectedFile.lastModifiedDate.toDateString()}
+                    </p>
+                    
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <br />
+                    <h4>Please choose your file.</h4>
+                </div>
+            );
         }
-        this.props.model == 'edit'
-            ? organizationapi.updateOrganizationOwner(this.props.data.owner_id, {
-                name: this.state.name,
-                email: this.state.email,
-                mobile_no: this.state.mobile_no,
-                phone_no: this.state.phone_no,
-            }).then((res) => {
-                if (res.success) {
-                    toast.success(res.message, {position: toast.POSITION.TOP_RIGHT, autoClose: 2000})
-                    this.props.hide()
-                }
-            })
-            :
-            organizationapi.createOrganizationOwner({
-                organization_id: this.state.org_id,
-                name: this.state.name,
-                email: this.state.email,
-                mobile_no: this.state.mobile_no,
-                phone_no: this.state.phone_no,
-
-            }).then((res) => {
-                if (res.success) {
-                    toast.success(res.message, {position: toast.POSITION.TOP_RIGHT, autoClose: 2000})
-                    this.props.hide()
-                }
-            })
-
-
-    }
-
-    render() {
-        return (
-            <CommonModal size="md" aria-labelledby="contained-modal-title-vcenter" centered
-                         show={this.props.show} onHide={this.props.hide}>
+    };
+    return (
+        <>
+            <CommonModal size="lg" aria-labelledby="contained-modal-title-vcenter" centered
+                         show={props.show} onHide={props.hide}>
                 <Modal.Header closeButton>
-                    <Modal.Title
-                        className="mx-auto">{this.props.model == 'create' ? 'Create Owner' : 'Edit Owner'}</Modal.Title>
+                    <Modal.Title className="mx-auto">Upload file</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form noValidate validated={this.state.setValidated} onSubmit={this.handlesubmitt}>
-                        <Form.Row>
-                            <Col xs="12">
-                                <InputField>
-                                    <Form.Control
-                                        value={this.state.name}
-                                        name="name"
-                                        type="text"
-                                        required
-                                        placeholder="Dawood Tahir"
-                                        onChange={this.handleChange}
-                                    />
-                                    <Form.Label>
-                                        Owner Name
-                                    </Form.Label>
-                                    <Form.Control.Feedback type={this.state.feedback.name.type}>
-                                        {this.state.feedback.name.msg}
-                                    </Form.Control.Feedback>
-                                </InputField>
-
-                            </Col>
-                            <Col xs="12">
-                                <InputField>
-                                    <Form.Control
-                                        value={this.state.email}
-                                        name="email"
-                                        type="email"
-                                        required
-                                        placeholder="abc@gmail.com"
-                                        onChange={this.handleChange}
-                                    />
-                                    <Form.Label>
-                                        Owner Email
-                                    </Form.Label>
-                                    <Form.Control.Feedback type={this.state.feedback.email.type}>
-                                        {this.state.feedback.email.msg}
-                                    </Form.Control.Feedback>
-                                </InputField>
-                            </Col>
-                            <Col xs="12">
-                                <InputField>
-                                    <Form.Control
-                                        value={this.state.phone_no}
-                                        name="phone_no"
-                                        type="text"
-                                        required
-                                        placeholder="0563712883"
-                                        onChange={this.handleChange}
-                                    />
-                                    <Form.Label>
-                                        Owner Phone No
-                                    </Form.Label>
-                                    <Form.Control.Feedback type={this.state.feedback.phone_no.type}>
-                                        {this.state.feedback.phone_no.msg}
-                                    </Form.Control.Feedback>
-                                </InputField>
-                            </Col>
-                            <Col xs="12">
-                                <InputField>
-                                    <Form.Control
-                                        value={this.state.mobile_no}
-                                        name="mobile_no"
-                                        type="text"
-                                        required
-                                        placeholder="+923417656271"
-                                        onChange={this.handleChange}
-                                    />
-                                    <Form.Label>
-                                        Owner Mobile No
-                                    </Form.Label>
-                                    <Form.Control.Feedback type={this.state.feedback.mobile_no.type}>
-                                        {this.state.feedback.mobile_no.msg}
-                                    </Form.Control.Feedback>
-                                </InputField>
-                            </Col>
-                            <Col xs="12" className="text-center">
-                                <ul className="list-inline mb-0">
-                                    <li className="list-inline-item">
-                                        <Btn type="submit" variant="pri5RGBA"
-                                            disabled={this.state.email === '' ||
-                                                      this.state.name === '' ||
-                                                      this.state.mobile_no === '' ||
-                                                      this.state.phone_no === ''}
-                                            >
-                                            {this.props.model == 'create' ? 'Save' : 'Update'}
-                                        </Btn>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <Btn onClick={this.props.hide}
-                                         variant="pri7RGBA">
-                                            Cancel
-                                        </Btn>
-                                    </li>
-                                </ul>
-                            </Col>
-                        </Form.Row>
-                    </Form>
+                     <div>
+                        <h3>
+                           Upload file
+                        </h3>
+                        {selectedFile &&
+                            <ProgressBar
+                                striped
+                                animated
+                                variant="success"
+                                now={progress}
+                                label={`${progress}%`}
+                            />
+                        }
+                        <br />
+                        <div>
+                            {/* <input type="file" onChange={onFileChange} /> */}
+                            <Form>
+                                <Form.File
+                                    style={{width: "30%"}}
+                                    label={selectedFile? selectedFile.name:"Choose your file"}
+                                    onChange={onFileChange}
+                                    custom
+                                />
+                                <br></br>
+                                  <TextArea style={{marginTop: "2em"}}>
+                                            <Form.Control
+                                                value={note}
+                                                name="note"
+                                                as="textarea"
+                                                placeholder="Some details"
+                                                onChange={event =>
+                                                  setnote(event.target.value)
+                                                }
+                                            />
+                                            <Form.Label>
+                                                Enter  Details
+                                            </Form.Label>
+                                        </TextArea>
+                            </Form>
+                            <br />
+                            <Button disabled={!selectedFile} onClick={onFileUpload}>
+                                Upload!
+                            </Button>
+                        </div>
+                      
+                    </div>
                 </Modal.Body>
             </CommonModal>
-        )
-    }
-}
+        </>
+    );
+};
 
+export default PropertyOwnerTenants;

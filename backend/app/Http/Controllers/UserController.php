@@ -22,8 +22,8 @@ class UserController extends Controller
             $users = User::with('role','grade')->where("id", "!=", $request->user_id);
             $users = SortAndFilterAndPaginateHelper::filterAndSortAndPaginate($users, $request, 'users');
             if($request->limit) {
-                $data = User::where("id", "=", $request->signed_user_id)->orwhere("reporting_id", "=", $request->signed_user_id)->get();
-                $users = ["data" => $users->getCollection(),"condition_data" =>$data, "total" => $users->total()];
+                // $data = User::with('role','roleReprtingUser')->where("id", "=", $request->signed_user_id)->orwhere("reporting_id", "=", $request->signed_user_id)->get();
+                $users = ["data" => $users->getCollection(),"condition_data" =>[], "total" => $users->total()];
             }else {
                 $users = ["data" => $users,  "total" => count($users)];
             }

@@ -47,7 +47,7 @@ export default class UserCreate extends Component {
                 this.setState({roles : res.roles.data})
             }
         });
-        organizationgradeapi.getOrganizationTenants(this.state.org_id).then(res => {
+        organizationgradeapi.getOrganizationTenants(this.state.org_id,{filters:{status:'P'}}).then(res => {
             console.log(res)
             if(res.success){
                 this.setState({grades : res.tenants.data})
@@ -208,6 +208,7 @@ export default class UserCreate extends Component {
                                           value={this.state.grade_id}
                                           onChange={this.handleChange}
                                           required>
+                                <option key="0" value="0">Select Any One</option>
                                 {this.state.grades.map(role => ( <option key={role.id} value={role.id}>{role.name}</option> ))}
                             </Form.Control>
                             <Form.Label>Grade</Form.Label>

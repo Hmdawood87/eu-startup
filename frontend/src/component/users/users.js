@@ -91,9 +91,19 @@ export default class User extends Component {
         })
 
     }
-    checkview=(user_id=null,reporting_id=null)=>{
-
-        return reporting_id;
+    checkview=(reporting_id=null)=>{
+           if(this.state.condition_data){
+            console.log("on checking",this.state.condition_data)
+            this.state.condition_data.map((value)=>{
+                    if(value.reporting_id==reporting_id || value.id==this.state.user.id){
+                        return value.name
+                    } 
+                })
+             }else{
+                return '';
+             }
+           
+       
     }
     render() {
         const columns = [
@@ -107,30 +117,8 @@ export default class User extends Component {
                 dataIndex: 'email',
                 ...getColumnSearchProps('email',this.state,this),
             },
-            {
-                title: 'Reporting Person',
-                dataIndex: 'reporting_id',
-                render:(record)=>{
-                    this.checkview(3,record)
-                }
-            },
-            {
-                title: 'Role',
-                dataIndex: 'role',
-                key: "role_id",
-                // ...getColumnSearchProps('role',this.state,this),
-
-                filters:this.state.roles,
-                // ...getColumnSearchProps('role_id',this.state,this),
-                render:(record)=> record.name
-            },
-
-            {
-                title: 'Salary',
-                dataIndex: 'grade',
-
-                render:(record)=> record.salary
-            },
+          
+          
             {
                 title: haspermission(['user_update', 'user_delete']) ? 'Actions' : '',
                 render: (checked, record, index, originNode) => (
@@ -169,13 +157,46 @@ export default class User extends Component {
             }
 
         ];
-       if(haspermission(['user_delete'])){
+       if(haspermission(['user_all_view'])){
+        columns.splice(columns.length-1, 0,  {
+            title: 'Role',
+            dataIndex: 'role',
+            key: "role_id",
+            filters:this.state.roles,
+            // ...getColumnSearchProps('role_id',this.state,this),
+            render:(record)=> record.name
+        });
            columns.splice(columns.length-1, 0,  {
                title: 'Grade',
                dataIndex: 'grade',
-               render:(record)=> record.name
+               render:(record,index)=>{ if(index.reporting_id ==this.state.user.id){
+                return record.name
+                }else{
+                    return null
+                }} 
            });
-           // columns.insert(columns.length-1,)
+           columns.splice(columns.length-1, 0,    {
+            title: 'Salary',
+            dataIndex: 'grade',
+
+            render:(record,index)=>{ if(index.reporting_id==this.state.user.id){
+                return record.salary
+                }else{
+                    return null
+                }} 
+        });
+      
+        columns.splice(columns.length-1, 0,    {
+            title: 'Reporting Person',
+            dataIndex: 'reporting_id',
+            render:(record)=>{
+                if(record==this.state.user.id){
+                return this.state.user.name+'---'+this.state.user.role.name
+                }else{
+                    return null
+                }
+            }
+        });
        }
 
         return (

@@ -16,6 +16,8 @@ class CreatePropertyImagesTable extends Migration
         Schema::create('property_images', function (Blueprint $table) {
             $table->id();
             $table->string('file_path');
+            $table->string('note');
+            $table->string('status');
             $table->string('submitted_type');
             $table->Integer("submitted_id");
             $table->timestamps();

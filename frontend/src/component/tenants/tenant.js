@@ -36,7 +36,6 @@ export default class Tenant extends Component {
     }
 
     hanldeDelete = (e) => {
-        console.log("callinbg delt id",e)
         organizationapi.deleteOrganizationTenants(e).then((res) => {
             if (res.success) {
                 toast.success(res.message, {position: toast.POSITION.TOP_RIGHT, autoClose: 2000})
@@ -49,7 +48,7 @@ export default class Tenant extends Component {
         organizationapi.updateOrganizationTenants(e, {
             name: this.state.name,
             salary: this.state.email,
-            status:'Approved'
+            status:'A'
         }).then((res) => {
             if (res.success) {
                 toast.success(res.message, {position: toast.POSITION.TOP_RIGHT, autoClose: 2000})
@@ -102,7 +101,7 @@ export default class Tenant extends Component {
             {
                 title: 'Status',
                 dataIndex: 'status',
-
+               render: (record)=>record=='P'? 'Pending For Approvel':'Approved'
             },
            
             {
@@ -110,7 +109,7 @@ export default class Tenant extends Component {
                 render: (checked, record, index, originNode) => (
                     <Space size="small">
                         <React.Fragment>
-                            {haspermission(['salary_update']) && record.status=='Pending'? (
+                            {haspermission(['salary_update']) && record.status=='P'? (
                                 <Tooltip placement="topLeft" title="view">
                                     <Btn
                                         onClick={() => this.setState({show_approvel: true, tenant_id:record.id,name:record.name,email:record.salary})}

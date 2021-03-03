@@ -5,6 +5,7 @@ use App\Helpers\SortAndFilterAndPaginateHelper;
 use App\Owner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\PropertyImage;
 
 class OwnerController extends Controller
 {
@@ -16,8 +17,8 @@ class OwnerController extends Controller
             ]);
             if($validator->fails())
                 return response()->json(["success" => false, "message" => $validator->errors()], 412);
-            $owners = Owner::where("organization_id", $request->organization_id);
-            $owners = SortAndFilterAndPaginateHelper::filterAndSortAndPaginate($owners, $request, 'owner');
+            $owners = PropertyImage::where("organization_id", $request->organization_id);
+            $owners = SortAndFilterAndPaginateHelper::filterAndSortAndPaginate($owners, $request, 'property_images');
             if($request->limit)
                 $owners = ["data" => $owners->getCollection(), "total" => $owners->total()];
             else
@@ -31,17 +32,17 @@ class OwnerController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'=> 'bail|required|string|max:30',
-            'email'           => 'bail|required|email|unique:users|max:30',
-            'organization_id' => 'bail|required|numeric',
-            'phone_no'       => 'bail|required|numeric|digits_between:1,15',
-            'mobile_no'       => 'bail|required|numeric|digits_between:1,15',
+            'file'        => 'bail|required_with:tenant_id,owner_id|file|max:10240',
+            'submitted_id' => 'bail|required|numeric',
+            
         ]);
         if($validator->fails())
             return response()->json(["success" => false, "message" => $validator->errors()], 412);
         try {
-            $owner = Owner::create($request->all());
-            return response()->json(['success' => true, 'data' => $owner, 'message' => 'Owner has been created successfully'], 201);
+            $path = public_path('docs/'.$request->submitted_id.'/');
+             $uploaded = $request->file('file')->move($path, $request->file('file')->getClientOriginalName());
+            $properties=PropertyImage::create(["file_path" => $path, "submitted_id" => $request->submitted_id,"submitted_type" => 'purchase_slip']);
+            return response()->json(['success' => true, 'data' => $properties, 'message' => 'Purchase slip has been sumitted successfully'], 201);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 409);
         }

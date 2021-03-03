@@ -16,7 +16,7 @@ export default class TenantCreate extends Component {
             name:this.props.data.name?this.props.data.name:'',
             phone_no:this.props.data.phone_no?this.props.data.phone_no:'',
             mobile_no:this.props.data.mobile_no?this.props.data.mobile_no:'',
-            status:'Pending',
+            status:'P',
             feedback: {
                 email: {msg: "salary missing", type: "invalid"},
                 name: {msg: "name missing", type: "invalid"},
